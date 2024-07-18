@@ -3,7 +3,7 @@ services:
     name: mosquito-killer-backend
     plan: free
     buildCommand: cd MosquitoKiller/mosquito-killer-backend && npm install
-    startCommand: cd MosquitoKiller/mosquito-killer-backend && npm start
+    startCommand: cd MosquitoKiller/mosquito-killer-backend && node server.js
     runtime: node
     envVars:
       - key: MONGODB_URI
