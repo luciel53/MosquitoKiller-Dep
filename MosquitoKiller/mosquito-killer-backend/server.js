@@ -3,10 +3,16 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+const corsOptions = {
+  origin: 'https://mosquito-killer.onrender.com',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
 const app = express();
 
 app.use(express.json());
-app.use(cors({ origin: 'https://mosquito-killer.onrender.com' }));
+app.use(cors(corsOptions));
 
 // Database connection
 mongoose
