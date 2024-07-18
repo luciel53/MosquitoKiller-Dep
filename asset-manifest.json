@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/MosquitoKiller-Dep/static/css/main.6365d560.css",
+    "main.js": "/MosquitoKiller-Dep/static/js/main.254d0600.js",
+    "static/media/Cloud_001S.jpg": "/MosquitoKiller-Dep/static/media/Cloud_001S.8d67451c5d0cc64c0d61.jpg",
+    "static/media/vvxs_w2ro_230518.jpg": "/MosquitoKiller-Dep/static/media/vvxs_w2ro_230518.c5280b3a687a956aa3ef.jpg",
+    "static/media/Pain Circus.ttf": "/MosquitoKiller-Dep/static/media/Pain Circus.df554920440899a3d091.ttf",
+    "static/media/bloodlust.ttf": "/MosquitoKiller-Dep/static/media/bloodlust.0e9ddb2b93d87f2cccdb.ttf",
+    "static/media/winner.png": "/MosquitoKiller-Dep/static/media/winner.31d4d2353e81d3be8a07.png",
+    "static/media/FuturaHandwritten.ttf": "/MosquitoKiller-Dep/static/media/FuturaHandwritten.dbaf4545e86152589f62.ttf",
+    "index.html": "/MosquitoKiller-Dep/index.html",
+    "static/media/restart.svg": "/MosquitoKiller-Dep/static/media/restart.77370a258c9bc43353add3b7e8712470.svg",
+    "static/media/trophy.svg": "/MosquitoKiller-Dep/static/media/trophy.acef5714fd53388b812c08181f5382d8.svg",
+    "main.6365d560.css.map": "/MosquitoKiller-Dep/static/css/main.6365d560.css.map",
+    "main.254d0600.js.map": "/MosquitoKiller-Dep/static/js/main.254d0600.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6365d560.css",
+    "static/js/main.254d0600.js"
+  ]
+}
