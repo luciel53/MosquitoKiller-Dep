@@ -177,7 +177,7 @@ function App() {
 
   const fetchLeaderboard = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/results");
+      const response = await fetch("https://mosquito-killer.onrender.com/api/results");
       if (!response.ok) {
         throw new Error("Failed to fetch leaderboard");
       }
@@ -196,7 +196,7 @@ function App() {
     }
 
     try {
-      await fetch("http://localhost:5000/api/results", {
+      await fetch("https://mosquito-killer.onrender.com/api/results", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
