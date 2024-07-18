@@ -15,5 +15,5 @@ services:
     name: shooting-game
     plan: free
     buildCommand: cd MosquitoKiller/shooting-game && npm install && npm run build
-    startCommand: cd MosquitoKiller/shooting-game && npm install -g serve && serve -s build
-    runtime: static
+    startCommand: cd MosquitoKiller/shooting-game && npx serve -s build
+    runtime: node
