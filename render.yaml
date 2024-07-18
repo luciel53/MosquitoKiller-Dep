@@ -1,20 +1,22 @@
 services:
   - type: web
     name: mosquito-killer-backend
-    env: node
     plan: free
     buildCommand: cd MosquitoKiller/mosquito-killer-backend && npm install
     startCommand: cd MosquitoKiller/mosquito-killer-backend && npm start
+    runtime:
+      name: node
+      version: 20.15.1
     envVars:
       - key: MONGODB_URI
         value: mongodb+srv://Mooncake:Chookity_pok_pok8@mosquitokiller.ho0syhm.mongodb.net/?retryWrites=true&w=majority&appName=MosquitoKiller
       - key: PORT
         value: "5000"
 
-
   - type: web
     name: shooting-game
-    env: node
     plan: free
     buildCommand: cd MosquitoKiller/shooting-game && npm install && npm run build
     startCommand: cd MosquitoKiller/shooting-game && npm install -g serve && serve -s build
+    runtime:
+      name: static
