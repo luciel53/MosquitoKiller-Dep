@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: 'pain_circus';
+  src: url('./fonts/pain_circus/Pain\ Circus.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bloodlust';
+  src: url('./fonts/bloodlust/bloodlust.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'futurahandwritten';
+  src: url('./fonts/futurahandwritten/FuturaHandwritten.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./cartoon-white-clouds-icon-set-isolated-blue/Cloud_001S.jpg');
+  background-size: cover;
+  height: 100vh;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  font-family: 'pain_circus';
+}
+
+.game-container {
+  text-align: center;
+  opacity: 90%;
+}
+
+.target {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.non-selectable {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Standard */
+}
