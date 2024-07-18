@@ -4,7 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const corsOptions = {
-  origin: 'https://mosquito-killer.onrender.com',
+  origin: 'https://luciel53.github.io/MosquitoKiller-Dep',
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
