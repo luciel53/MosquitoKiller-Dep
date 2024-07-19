@@ -95,19 +95,6 @@ function App() {
     }
   };
 
-  // Check if a target is missed
-  // useEffect(() => {
-  //   if (targets.length > 0) {
-  //     const checkMissedTargets = setInterval(() => {
-  //       if (isGameStarted && targets.length > 0) {
-  //         setMissedTargets((prevMissed) => prevMissed + 1);
-  //         setTargets((prevTargets) => prevTargets.slice(1));
-  //       }
-  //     }, intervalDelay);
-  //     return () => clearInterval(checkMissedTargets);
-  //   }
-  // }, [targets, isGameStarted, intervalDelay]);
-
   // Effect to manage the interval to generate new targets
   useEffect(() => {
     if (isGameStarted && intervalId.current) {
