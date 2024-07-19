@@ -24,7 +24,7 @@ function App() {
   const intervalId = useRef(null); // Ref for interval ID
 
   const targetLimit = 5; // Limit for missed targets
-  const maxTargets = 30; // Limit for max targets displayed at the same time
+  const maxTargets = 31; // Limit for max targets displayed at the same time
 
   const [currentMosquitoCount, setCurrentMosquitoCount] = useState(0);
 
