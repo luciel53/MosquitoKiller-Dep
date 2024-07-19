@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Start from "./components/Start";
+import ProgressBar from "./components/ProgressBar";
 import "./App.css";
 import mosquito from "./cute-mosquito-cartoon-character-flying/vvxs_w2ro_230518.jpg";
 import trophy from "./images/trophy.svg";
@@ -23,6 +24,9 @@ function App() {
   const intervalId = useRef(null); // Ref for interval ID
 
   const targetLimit = 5; // Limit for missed targets
+  const maxTargets = 30; // Limit for max targets displayed at the same time
+
+  const [currentMosquitoCount, setCurrentMosquitoCount] = useState(0);
 
   // Function to handle clicks outside the leaderboard to close it
   useEffect(() => {
@@ -44,21 +48,45 @@ function App() {
 
   const spawnTarget = () => {
     if (gameAreaRef.current) {
+      if (targets.length >= maxTargets) {
+        handleGameOver(); // End the game if the number of targets exceeds the max limit
+        return;
+      }
+
       const newTarget = {
         id: Date.now(),
         x: Math.random() * (gameAreaRef.current.offsetWidth - 50),
         y: Math.random() * (gameAreaRef.current.offsetHeight - 50),
       };
       setTargets((prevTargets) => [...prevTargets, newTarget]);
+      setCurrentMosquitoCount((prevCount) => prevCount + 1); // Update the mosquito count
     }
   };
 
+  useEffect(() => {
+    if (currentMosquitoCount >= maxTargets) {
+      handleGameOver();
+    }
+  }, [currentMosquitoCount]);
+
   const handleTargetClick = (id, event) => {
     event.stopPropagation(); // Prevent counting the click as a missed target
-    setTargets((prevTargets) =>
-      prevTargets.filter((target) => target.id !== id)
-    );
+
+    // Update the state to remove the target
+    setTargets((prevTargets) => {
+      const updatedTargets = prevTargets.filter((target) => target.id !== id);
+      console.log("Updated Targets:", updatedTargets);
+      return updatedTargets;
+    });
+
+    // Update the score and current mosquito count
     setScore((prevScore) => prevScore + 1);
+    setCurrentMosquitoCount((prevCount) => {
+      console.log("Current Mosquito Count Before:", prevCount);
+      const newCount = Math.max(0, prevCount - 1);
+      console.log("Current Mosquito Count After:", newCount);
+      return newCount;
+    });
   };
 
   const handleGameAreaClick = () => {
@@ -68,17 +96,17 @@ function App() {
   };
 
   // Check if a target is missed
-  useEffect(() => {
-    if (targets.length > 0) {
-      const checkMissedTargets = setInterval(() => {
-        if (isGameStarted && targets.length > 0) {
-          setMissedTargets((prevMissed) => prevMissed + 1);
-          setTargets((prevTargets) => prevTargets.slice(1));
-        }
-      }, intervalDelay);
-      return () => clearInterval(checkMissedTargets);
-    }
-  }, [targets, isGameStarted, intervalDelay]);
+  // useEffect(() => {
+  //   if (targets.length > 0) {
+  //     const checkMissedTargets = setInterval(() => {
+  //       if (isGameStarted && targets.length > 0) {
+  //         setMissedTargets((prevMissed) => prevMissed + 1);
+  //         setTargets((prevTargets) => prevTargets.slice(1));
+  //       }
+  //     }, intervalDelay);
+  //     return () => clearInterval(checkMissedTargets);
+  //   }
+  // }, [targets, isGameStarted, intervalDelay]);
 
   // Effect to manage the interval to generate new targets
   useEffect(() => {
@@ -99,7 +127,7 @@ function App() {
     };
 
     if (isGameStarted) {
-      const speedInterval = setInterval(increaseSpeed, 30000); // every 30 sec
+      const speedInterval = setInterval(increaseSpeed, 10000); // every 30 sec
       return () => clearInterval(speedInterval);
     }
   }, [isGameStarted]);
@@ -137,7 +165,7 @@ function App() {
     setGameOver(true);
     setIsGameStarted(false);
     clearInterval(intervalId.current); // Stop the interval
-
+    setCurrentMosquitoCount(0);
     // Check if the player's score qualifies for the top 15
     const currentLeaderboard = [...leaderboard, { username, score, time }];
     currentLeaderboard.sort((a, b) => b.score - a.score);
@@ -162,6 +190,7 @@ function App() {
     setIsGameStarted(true);
     setIntervalDelay(1000); // Reset the interval delay to the initial value
     setDisplayForm(false); // Reset display form state
+    setCurrentMosquitoCount(0);
   };
 
   useEffect(() => {
@@ -177,7 +206,9 @@ function App() {
 
   const fetchLeaderboard = async () => {
     try {
-      const response = await fetch("https://mosquito-killer.onrender.com/api/results");
+      const response = await fetch(
+        "https://mosquito-killer.onrender.com/api/results"
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch leaderboard");
       }
@@ -275,17 +306,27 @@ function App() {
             ))}
           </div>
           {/* Game info */}
-          <div className=" flex flex-col game-info text-center font-futura">
-            <div className="flex flex-row justify-between px-4 font-semibold">
-              <div className="score">Score: {score}</div>
-              <div className="timer">Temps: {formatTime(time)}</div>
-              <div className="missed-targets">
+          <div className="flex flex-col items-center justify-center text-center font-futura">
+            <div className="flex flex-row justify-around w-full space-y-4">
+              {/* Score */}
+              <div className="text-lg font-semibold pt-4">Score: {score}</div>
+              {/* Progress Bar */}
+              <div className="flex flex-col items-center w-full max-w-3xl">
+                <ProgressBar value={currentMosquitoCount} max={maxTargets} />
+              </div>
+              {/* Timer */}
+              <div className="text-lg font-semibold">
+                Temps: {formatTime(time)}
+              </div>
+              {/* Missed Targets */}
+              <div className="text-lg font-semibold">
                 Cibles manquées: {missedTargets}/{targetLimit}
               </div>
             </div>
-            <div className="mt-16 pb-1">
-              <p>Créé par <a href="https://luciel53.github.io/">Lucie Leroty</a> -
-              Développeuse Web Full Stack
+            <div className="mt-10 pb-1">
+              <p>
+                Créé par <a href="https://luciel53.github.io/">Lucie Leroty</a>{" "}
+                - Développeuse Web Full Stack
               </p>
             </div>
           </div>
@@ -393,7 +434,7 @@ function App() {
                     type="text"
                     value={username}
                     onChange={handleUsernameChange}
-                    placeholder="Enter your name"
+                    placeholder="Entre ton nom"
                     className="h-12 w-60 mt-10 mr-2 border-2 text-center rounded-full border-red-500"
                   ></input>
                   {/* Submit button */}

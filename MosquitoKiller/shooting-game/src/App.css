@@ -59,3 +59,18 @@ body {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Standard */
 }
+
+.progress-bar-container {
+  width: 80%;
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: red;
+  transition: width 0.3s;
+}
