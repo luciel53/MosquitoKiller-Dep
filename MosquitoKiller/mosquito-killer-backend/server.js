@@ -14,6 +14,14 @@ const app = express();
 app.use(express.json());
 app.use(cors(corsOptions));
 
+// Middleware global for CORS headers
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://luciel53.github.io/MosquitoKiller-Dep");
+  res.header("Access-Control-Allow-Methods", "GET, POST");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
 // Database connection
 mongoose
   .connect(process.env.MONGODB_URI)
